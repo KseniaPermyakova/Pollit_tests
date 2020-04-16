@@ -1,5 +1,6 @@
 package helpers;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,5 +35,23 @@ public class LoginPageHelper extends PageBase {
     public void clickLogin() {
         waitUntilElementIsClickable(loginButton, 3);
         loginButton.click();
+    }
+
+    public void waitPassError() {
+        waitUntilElementIsVisible(driver.findElement(By.xpath("//div[3]//span[1]")), 10);
+    }
+
+    public void waitLoginError() {
+        waitUntilElementIsVisible(driver.findElement(By.xpath("//div[contains(@class,'form-box')]//div[1]//span[1]")), 10);
+    }
+
+    public boolean verifyIfPassErrorIsCorrect() {
+        return driver.findElement(By.xpath("//div[3]//span[1]"))
+                .getText().contains("Log In failed, password incorrect.");
+    }
+
+    public boolean verifyIfLoginErrorIsCorrect() {
+        return driver.findElement(By.xpath("//div[contains(@class,'form-box')]//div[1]//span[1]"))
+                .getText().contains("Log In failed, email incorrect.");
     }
 }

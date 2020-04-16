@@ -33,4 +33,28 @@ public class LoginPageTests extends TestBase {
         Assert.assertTrue(userPage.verifyIfWelcomeTextIsDisplayed());
     }
 
+    @Test
+    public void testIncorrectPassNegative() {
+        homePage.openLoginPage();
+        loginPage.waitUntilPageIsLoaded();
+        loginPage.enterLogin(LOGIN);
+        loginPage.enterPassword(PASSWORD + "1");
+        loginPage.clickLogin();
+        loginPage.waitPassError();
+
+        Assert.assertTrue(loginPage.verifyIfPassErrorIsCorrect(), "Error message is not correct");
+    }
+
+    @Test
+    public void testIncorrectLoginNegative() {
+        homePage.openLoginPage();
+        loginPage.waitUntilPageIsLoaded();
+        loginPage.enterLogin(LOGIN + "1");
+        loginPage.enterPassword(PASSWORD);
+        loginPage.clickLogin();
+        loginPage.waitLoginError();
+
+        Assert.assertTrue(loginPage.verifyIfLoginErrorIsCorrect(), "Error message is not correct");
+    }
+
 }
